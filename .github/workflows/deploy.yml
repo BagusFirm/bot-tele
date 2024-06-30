@@ -25,7 +25,9 @@ jobs:
 
       - name: Install Railway CLI
         run: |
-          curl -sSL https://github.com/railwayapp/cli/releases/latest/download/railway-linux-amd64.gz | gzip -d > /usr/local/bin/railway
+          wget -q https://github.com/railwayapp/cli/releases/latest/download/railway-linux-amd64.tar.gz -O railway.tar.gz
+          tar -xzf railway.tar.gz -C /usr/local/bin
+          mv /usr/local/bin/railway-linux-amd64 /usr/local/bin/railway
           chmod +x /usr/local/bin/railway
 
       - name: Deploy to Railway
@@ -33,3 +35,4 @@ jobs:
           railway up
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+
